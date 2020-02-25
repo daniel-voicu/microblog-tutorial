@@ -15,4 +15,4 @@ login = LoginManager(app)
 login.login_view = 'login'
 
 # this bottom impoort is a workaround to circular imports. 'routes' module needs to import the app variable defined in this script
-from app import routes, models
+from app import routes, models, errors
