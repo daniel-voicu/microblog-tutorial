@@ -20,3 +20,5 @@ class Config(object):
     ADMINS = [LocalConfig.MAIL_USERNAME]
 
     POSTS_PER_PAGE = 3
+
+    LANGUAGES = ['en', 'es']
