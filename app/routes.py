@@ -20,7 +20,6 @@ def before_request():
 @app.route("/index", methods=["GET", "POST"])
 @login_required
 def index():
-
     form = PostForm()
 
     if form.validate_on_submit():
@@ -30,7 +29,9 @@ def index():
         flash('Your post is now live!')
         return redirect(url_for('index'))
 
-    return render_template("index.html", title="Home", form=form)
+    posts = current_user.followed_posts().all()
+
+    return render_template("index.html", title="Home", posts=posts, form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -132,3 +133,10 @@ def unfollow(username):
     db.session.commit()
     flash('You are not following {}.'.format(username))
     return redirect(url_for('user', username=username))
+
+
+@app.route('/explore')
+@login_required
+def explore():
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('index.html', title='Explore', posts=posts)
