@@ -2,3 +2,5 @@ venv
 .idea
 logs
 local_config.py
+.env
+app.db

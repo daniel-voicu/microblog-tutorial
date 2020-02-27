@@ -10,11 +10,11 @@ from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from flask_babel import Babel, lazy_gettext as _l
 from config import Config
+from elasticsearch import Elasticsearch
 
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
-
 
 # automatically redirect the user to the login form, and only redirect back to the page the user wanted to view
 # after the login process is complete.
@@ -46,6 +46,8 @@ def create_app(config_class=Config):
 
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
+
+    app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) if app.config['ELASTICSEARCH_URL'] else None
 
     if not app.debug and not app.testing:
         if app.config['MAIL_SERVER']:
@@ -83,6 +85,7 @@ def create_app(config_class=Config):
 @babel.localeselector
 def get_locale():
     return request.accept_languages.best_match(current_app.config['LANGUAGES'])
+
 
 # this bottom impoort is a workaround to circular imports. 'routes' module needs to import the app variable defined
 # in this script
