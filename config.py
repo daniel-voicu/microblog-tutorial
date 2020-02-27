@@ -1,7 +1,6 @@
 import os
 from dotenv import load_dotenv
 
-from local_config import LocalConfig
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
@@ -19,9 +18,9 @@ class Config(object):
     MAIL_PORT = int(os.environ.get('MAIL_PORT') or 587)
     # MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS') is not None
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or LocalConfig.MAIL_USERNAME
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or LocalConfig.MAIL_PASSWORD
-    ADMINS = [LocalConfig.MAIL_USERNAME]
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or None
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or None
+    ADMINS = ["notifications.script@gmail.com"]
 
     POSTS_PER_PAGE = 3
 
