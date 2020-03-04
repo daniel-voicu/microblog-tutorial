@@ -16,4 +16,4 @@ def translate(text, source_language, dest_language):
     # if r.status_code != 200:
     #     return _('Error: the translation service failed.')
 
-    return f"{dest_language}: {text}"
+    return "{0}: {1}".format(dest_language, text)
